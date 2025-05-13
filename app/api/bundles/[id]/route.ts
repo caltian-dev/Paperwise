@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server"
 import { neon } from "@neondatabase/serverless"
 
-const sql = neon(process.env.DATABASE_URL!)
-
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {
   try {
+    const sql = neon(process.env.DATABASE_URL!)
     const bundleId = params.id
 
     // Delete the bundle (cascade will delete bundle-document relationships)

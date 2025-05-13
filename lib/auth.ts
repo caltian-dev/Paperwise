@@ -1,11 +1,10 @@
-import type { NextAuthOptions } from "next-auth"
-import { getServerSession } from "next-auth/next"
-import CredentialsProvider from "next-auth/providers/credentials"
-import { neon } from "@neondatabase/serverless"
+import type { NextAuthOptions } from "next-auth";
+import { getServerSession } from "next-auth/next";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { neon } from "@neondatabase/serverless";
 // import { compare } from "bcrypt"
 
 // Create a SQL client
-const sql = neon(process.env.DATABASE_URL!)
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -17,8 +16,9 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         try {
+          const sql = neon(process.env.DATABASE_URL!);
           if (!credentials?.email || !credentials?.password) {
-            return null
+            return null;
           }
 
           // For development/testing purposes, allow admin login with hardcoded credentials
@@ -32,7 +32,7 @@ export const authOptions: NextAuthOptions = {
               name: "Admin User",
               email: "admin@paperwise.com",
               role: "admin",
-            }
+            };
           }
 
           // In production, check against the database
@@ -41,10 +41,10 @@ export const authOptions: NextAuthOptions = {
             FROM users
             WHERE email = ${credentials.email}
             LIMIT 1
-          `.then((res) => res[0])
+          `.then((res) => res[0]);
 
           if (!user) {
-            return null
+            return null;
           }
 
           // Verify password
@@ -58,10 +58,10 @@ export const authOptions: NextAuthOptions = {
             name: user.name || user.email,
             email: user.email,
             role: user.role || "user",
-          }
+          };
         } catch (error) {
-          console.error("Auth error:", error)
-          return null
+          console.error("Auth error:", error);
+          return null;
         }
       },
     }),
@@ -69,17 +69,17 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     jwt({ token, user }) {
       if (user) {
-        token.id = user.id
-        token.role = user.role
+        token.id = user.id;
+        token.role = user.role;
       }
-      return token
+      return token;
     },
     session({ session, token }) {
       if (token && session.user) {
-        session.user.id = token.id as string
-        session.user.role = token.role as string
+        session.user.id = token.id as string;
+        session.user.role = token.role as string;
       }
-      return session
+      return session;
     },
   },
   pages: {
@@ -92,8 +92,8 @@ export const authOptions: NextAuthOptions = {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   secret: process.env.NEXTAUTH_SECRET,
-}
+};
 
 export async function getSession() {
-  return getServerSession(authOptions)
+  return getServerSession(authOptions);
 }

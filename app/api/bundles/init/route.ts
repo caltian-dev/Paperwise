@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server"
 import { neon } from "@neondatabase/serverless"
 
-const sql = neon(process.env.DATABASE_URL!)
-
 export async function POST() {
   try {
+    const sql = neon(process.env.DATABASE_URL!)
     // Create Bundle table
     await sql`
       CREATE TABLE IF NOT EXISTS "Bundle" (

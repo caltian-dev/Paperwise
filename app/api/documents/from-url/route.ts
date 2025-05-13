@@ -3,8 +3,6 @@ import { documentQueries } from "@/lib/db"
 import { v4 as uuidv4 } from "uuid"
 import { neon } from "@neondatabase/serverless"
 
-const sql = neon(process.env.DATABASE_URL!)
-
 // Helper function to extract Google Drive file ID
 function extractGoogleDriveFileId(url: string): string | null {
   // Match patterns like https://drive.google.com/file/d/FILE_ID/view
@@ -19,7 +17,8 @@ function getGoogleDriveDirectUrl(fileId: string): string {
 
 export async function POST(request: Request) {
   try {
-    const data = await request.json()
+const sql = neon(process.env.DATABASE_URL!)
+const data = await request.json()
     const { name, description, price, category, format, url, bundleIds = [] } = data
 
     // Validate required fields

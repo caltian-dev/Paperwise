@@ -2,9 +2,8 @@ import { NextResponse } from "next/server"
 import { v4 as uuidv4 } from "uuid"
 import { neon } from "@neondatabase/serverless"
 
-const sql = neon(process.env.DATABASE_URL!)
-
 export async function GET() {
+  const sql = neon(process.env.DATABASE_URL!)
   try {
     // Get all bundles with their documents
     const bundles = await sql`
@@ -29,6 +28,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const sql = neon(process.env.DATABASE_URL!)
   try {
     const { name, description, price, category, documentIds, popular } = await request.json()
 
