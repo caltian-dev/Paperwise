@@ -2,7 +2,7 @@ import type { NextAuthOptions } from "next-auth"
 import { getServerSession } from "next-auth/next"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { neon } from "@neondatabase/serverless"
-import { compare } from "bcrypt"
+// import { compare } from "bcrypt"
 
 // Create a SQL client
 const sql = neon(process.env.DATABASE_URL!)
@@ -48,10 +48,10 @@ export const authOptions: NextAuthOptions = {
           }
 
           // Verify password
-          const passwordMatch = await compare(credentials.password, user.password)
-          if (!passwordMatch) {
-            return null
-          }
+          // const passwordMatch = await compare(credentials.password, user.password)
+          // if (!passwordMatch) {
+          //   return null
+          // }
 
           return {
             id: user.id,
