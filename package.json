@@ -18,7 +18,7 @@
     "@hookform/resolvers": "^3.9.1",
     "@libsql/client": "latest",
     "@libsql/client-wasm": "latest",
-    "@neondatabase/serverless": "latest",
+    "@neondatabase/serverless": "^1.0.0",
     "@op-engineering/op-sqlite": "latest",
     "@opentelemetry/api": "latest",
     "@planetscale/database": "latest",
@@ -54,7 +54,7 @@
     "@types/better-sqlite3": "latest",
     "@types/pg": "latest",
     "@types/sql.js": "latest",
-    "@vercel/blob": "latest",
+    "@vercel/blob": "^1.0.1",
     "@vercel/postgres": "latest",
     "@xata.io/client": "latest",
     "autoprefixer": "^10.4.20",
@@ -105,7 +105,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@types/node": "^22",
+    "@types/node": "^22.15.17",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "postcss": "^8",
